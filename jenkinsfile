@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                // Pull the code from your GitHub repository
+                git branch: 'main', url: 'https://github.com/vineethreddyjalla/HTMLproject.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'No build needed for HTML project'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Example: copy HTML files to a web server directory
+                echo 'Deploying the HTML code...'
+                sh 'cp -r * /var/www/html/'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'HTML code successfully deployed.'
+        }
+        failure {
+            echo 'Failed to deploy HTML code.'
+        }
+    }
+}
